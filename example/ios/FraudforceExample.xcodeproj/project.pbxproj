@@ -15,7 +15,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FraudforceExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FraudforceExampleTests.m */; };
-		4C39C56BAD484C67AA576FFA /* libPods-FraudforceExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E69C5B9553B26FBA2DF04 /* libPods-FraudforceExample.a */; };
+		66743A82E0DB64A64EAD2FC4 /* libPods-FraudforceExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7AB5423792F5158931DC8F /* libPods-FraudforceExample.a */; };
 		71DF350A2853AFDB00176D33 /* FraudForce.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DF35092853AFDB00176D33 /* FraudForce.xcframework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -53,7 +53,7 @@
 		47F7ED3B7971BE374F7B8635 /* Pods-FraudforceExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FraudforceExample.debug.xcconfig"; path = "Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample.debug.xcconfig"; sourceTree = "<group>"; };
 		71DF35092853AFDB00176D33 /* FraudForce.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FraudForce.xcframework; path = "../../ios/Prebuilt Frameworks/FraudForce.xcframework"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FraudforceExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CA3E69C5B9553B26FBA2DF04 /* libPods-FraudforceExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FraudforceExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD7AB5423792F5158931DC8F /* libPods-FraudforceExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FraudforceExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00ACF0FDA8BF921659E2F9A /* Pods-FraudforceExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FraudforceExample.release.xcconfig"; path = "Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -72,7 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71DF350A2853AFDB00176D33 /* FraudForce.xcframework in Frameworks */,
-				4C39C56BAD484C67AA576FFA /* libPods-FraudforceExample.a in Frameworks */,
+				66743A82E0DB64A64EAD2FC4 /* libPods-FraudforceExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +130,7 @@
 				71DF35092853AFDB00176D33 /* FraudForce.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				CA3E69C5B9553B26FBA2DF04 /* libPods-FraudforceExample.a */,
+				AD7AB5423792F5158931DC8F /* libPods-FraudforceExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				C1D60D28B925C94BD88E79D7 /* [CP] Copy Pods Resources */,
+				472FAF359A2CAF042987ED13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -366,6 +366,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		472FAF359A2CAF042987ED13 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4F0A6FC082772762E3E4C96C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -386,24 +404,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C1D60D28B925C94BD88E79D7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FraudforceExample/Pods-FraudforceExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
