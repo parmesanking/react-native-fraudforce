@@ -15,7 +15,9 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
+  s.static_framework = true
+  
   s.dependency "React-Core"
-  s.ios.vendored_frameworks = '#FraudForce.xcframework'
+  s.ios.vendored_frameworks = '**/Prebuilt Frameworks/FraudForce.xcframework'
   
 end
