@@ -1,8 +1,23 @@
 @objc(Fraudforce)
 class Fraudforce: NSObject {
-
-    @objc(multiply:withB:withResolver:withRejecter:)
-    func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-        resolve(a*b)
+    
+    override init() {
+        FraudForce.start()        
     }
+
+    @objc
+    func blackbox(_ resolve: RCTPromiseResolveBlock,
+                   reject: RCTPromiseRejectBlock)  {
+        let str = FraudForce.blackbox()
+        print(str)
+        resolve(str)
+    }
+    
+    //this component must be already instanced before any JS object rendered
+      @objc
+      static func requiresMainQueueSetup() -> Bool{
+        return true
+      }
+      
+    
 }

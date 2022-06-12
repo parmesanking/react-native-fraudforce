@@ -9,14 +9,12 @@ const LINKING_ERROR =
 const Fraudforce = NativeModules.Fraudforce
   ? NativeModules.Fraudforce
   : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Fraudforce.multiply(a, b);
-}
+export default Fraudforce

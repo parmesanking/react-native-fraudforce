@@ -11,11 +11,11 @@ npm install react-native-fraudforce
 ## Usage
 
 ```js
-import { multiply } from "react-native-fraudforce";
+import { multiply } from 'react-native-fraudforce';
 
 // ...
 
-const result = await multiply(3, 7);
+const result = await Fraudforce.blackbox();
 ```
 
 ## Contributing

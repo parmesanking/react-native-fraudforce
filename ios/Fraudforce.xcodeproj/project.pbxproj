@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		5E555C0D2413F4C50049A1A2 /* Fraudforce.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Fraudforce.m */; };
-		F4FF95D7245B92E800C19C63 /*  Fraudforce.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /*  Fraudforce.swift */; };
-
+		711A9F6E2853898000B40969 /* FraudForce.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711A9F6D2853898000B40969 /* FraudForce.xcframework */; };
+		F4FF95D7245B92E800C19C63 /* Fraudforce.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* Fraudforce.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +16,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 10;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,11 +25,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libFraudforce.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFraudforce.a; sourceTree = BUILT_PRODUCTS_DIR; };
-
+		711A9F6D2853898000B40969 /* FraudForce.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FraudForce.xcframework; path = "Prebuilt Frameworks/FraudForce.xcframework"; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* Fraudforce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraudforce.m; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* Fraudforce-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fraudforce-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* Fraudforce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fraudforce.swift; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				711A9F6E2853898000B40969 /* FraudForce.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,13 +54,20 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-
 				F4FF95D6245B92E800C19C63 /* Fraudforce.swift */,
 				B3E7B5891CC2AC0600A0062D /* Fraudforce.m */,
 				F4FF95D5245B92E700C19C63 /* Fraudforce-Bridging-Header.h */,
-
 				134814211AA4EA7D00B7C361 /* Products */,
+				711A9F6C2853898000B40969 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		711A9F6C2853898000B40969 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				711A9F6D2853898000B40969 /* FraudForce.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,10 +127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				F4FF95D7245B92E800C19C63 /* Fraudforce.swift in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* Fraudforce.m in Sources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,11 +240,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Fraudforce;
 				SKIP_INSTALL = YES;
-
 				SWIFT_OBJC_BRIDGING_HEADER = "Fraudforce-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Debug;
 		};
@@ -259,10 +259,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Fraudforce;
 				SKIP_INSTALL = YES;
-
 				SWIFT_OBJC_BRIDGING_HEADER = "Fraudforce-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Release;
 		};
