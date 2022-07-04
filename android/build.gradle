@@ -6,6 +6,9 @@ buildscript {
     google()
     mavenCentral()
     jcenter()
+    flatDir {
+      dirs 'libs'
+    }
   }
 
   dependencies {
@@ -25,6 +28,13 @@ def getExtOrDefault(name) {
 def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['Fraudforce_' + name]).toInteger()
 }
+allprojects {
+  repositories {
+    flatDir {
+      dirs 'libs'
+    }
+  }
+}
 
 android {
   compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
@@ -33,9 +43,9 @@ android {
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
-    
+
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
@@ -54,6 +64,9 @@ repositories {
   mavenCentral()
   jcenter()
   google()
+  flatDir {
+    dirs 'libs'
+  }
 
   def found = false
   def defaultDir = null
@@ -125,6 +138,7 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 
 dependencies {
   // noinspection GradleDynamicVersion
+  implementation fileTree(dir: "libs", include: ["*.aar"])
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
