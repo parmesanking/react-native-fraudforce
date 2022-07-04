@@ -10,10 +10,15 @@ import com.iovation.mobile.android.FraudForceManager
 
 class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     val appContext: Context = reactContext.applicationContext
+    val ai = appContext.packageManager.getApplicationInfo(appContext.packageName, PackageManager.GET_META_DATA)
+    val iovationKey = ai.metaData.getString("com.betcha.IOVATION_KEY") ?: ""
+
+
     var configuration: FraudForceConfiguration  =  FraudForceConfiguration.Builder()
-      .subscriberKey("")
+      .subscriberKey(iovationKey)
       .enableNetworkCalls(true) // Defaults to false if left out of configuration
       .build()
+
 
 
     val fm =  (FraudForceManager.getInstance() as FraudForceManager).initialize(configuration, appContext)
