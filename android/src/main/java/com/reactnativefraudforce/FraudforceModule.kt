@@ -1,6 +1,7 @@
 package com.reactnativefraudforce
 
 import android.content.Context
+import android.content.pm.PackageManager
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
