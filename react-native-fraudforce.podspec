@@ -13,11 +13,17 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "10.0" }
   s.source       = { :git => "https://github.com/parmesanking/react-native-fraudforce.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.static_framework = true
   
   s.dependency "React-Core"
-  s.ios.vendored_frameworks = '**/Prebuilt Frameworks/FraudForce.xcframework'
+  
+  if Gem::Version.new(Pod::VERSION) >= Gem::Version.new('1.10.0')
+    s.source_files = "ios/**/*.{h,m,mm,swift}"
+    s.vendored_frameworks = '**/Prebuilt Frameworks/FraudForce.xcframework'
+    s.ios.vendored_frameworks = '**/Prebuilt Frameworks/FraudForce.xcframework'
+  else
+    s.source_files = "ios/**/*.{h,m,mm,swift}"
+  end
   
 end
