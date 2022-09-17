@@ -139,7 +139,7 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 dependencies {
   // noinspection GradleDynamicVersion
   implementation fileTree(dir: "libs", include: ["*.aar"])
-  compileOnly("libs/fraudforce-lib-release-4.3.2.aar")
+  compileOnly "com.iovation.mobile:4.3.2"
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
