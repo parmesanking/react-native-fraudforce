@@ -30,9 +30,9 @@ def getExtOrIntegerDefault(name) {
 }
 allprojects {
   repositories {
-    flatDir {
+   /*flatDir {
       dirs 'libs'
-    }
+    }*/
   }
 }
 
@@ -138,7 +138,8 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 
 dependencies {
   // noinspection GradleDynamicVersion
-  implementation fileTree(dir: "libs", include: ["*.aar"])
+  //implementation fileTree(dir: "libs", include: ["*.aar"])
+  implementation(name: 'fraudforce-lib-release-4.3.2', ext: 'aar')
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
