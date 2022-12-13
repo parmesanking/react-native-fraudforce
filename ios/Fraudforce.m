@@ -12,11 +12,12 @@ RCT_EXTERN_METHOD(startPerimeterX:
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXPORT_METHOD(getPerimeterXHeaders:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(getPerimeterXHeaders:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
     NSDictionary<NSString *, NSString *> *headers = [PerimeterX headersForURLRequestForAppId:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:headers options:0 error:nil];
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    callback(@[json]);
+    resolve(@[json]);
 }
 
 RCT_EXPORT_METHOD(handleResponse:(NSString *)response code:(NSInteger)code url:(NSString *)url) {
