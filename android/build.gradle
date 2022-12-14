@@ -148,5 +148,6 @@ dependencies {
   //PerimeterX deps
   implementation 'com.google.android.gms:play-services-instantapps:18.0.1'
   implementation 'io.ktor:ktor-client-okhttp:1.6.8'
-  implementation files('libs/msdk-2.2.2.aar')
+  implementation(name: 'msdk-2.2.2', ext: 'aar')
+
 }
