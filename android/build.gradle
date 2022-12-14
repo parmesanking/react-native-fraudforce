@@ -9,6 +9,7 @@ buildscript {
     flatDir {
       dirs 'libs'
     }
+    maven { url 'https://perimeterx.jfrog.io/artifactory/px-Android-SDK/' }
   }
 
   dependencies {
@@ -142,4 +143,10 @@ dependencies {
   implementation(name: 'fraudforce-lib-release-4.3.2', ext: 'aar')
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'com.google.android.material:material:1.5.0'  
+  
+  //PerimeterX deps
+  implementation 'com.google.android.gms:play-services-instantapps:18.0.1'
+  implementation 'io.ktor:ktor-client-okhttp:1.6.8'
+  implementation files('libs/msdk-2.2.2.aar')
 }
