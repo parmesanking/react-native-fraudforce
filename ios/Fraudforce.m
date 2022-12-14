@@ -15,15 +15,16 @@ RCT_EXTERN_METHOD(startPerimeterX:
 RCT_EXPORT_METHOD(getPerimeterXHeaders:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
     NSDictionary<NSString *, NSString *> *headers = [PerimeterX headersForURLRequestForAppId:nil];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:headers options:0 error:nil];
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    resolve(@[json]);
+    resolve(headers);
 }
 
-RCT_EXPORT_METHOD(handleResponse:(NSString *)response code:(NSInteger)code url:(NSString *)url) {
+RCT_EXPORT_METHOD(handleResponse:(NSString *)response code:(NSInteger)code url:(NSString *)url                     resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
     NSHTTPURLResponse *httpURLResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:url] statusCode:code HTTPVersion:nil headerFields:nil];
-    [PerimeterX handleResponseForAppId:nil data:data response:httpURLResponse];
+    BOOL isHandledByPX = [PerimeterX handleResponseForAppId:nil data:data response:httpURLResponse];
+    NSNumber *result = [NSNumber numberWithBool:isHandledByPX];
+    resolve(result);
 }
 
 @end
