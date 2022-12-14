@@ -54,6 +54,13 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
                             self.startPerimeterX(appId, resolve: resolve, reject: reject)
                         }else{
                             print("PerimeterX started...")
+                            
+                            let policy = PXPolicy()
+                            // configure the policy instacne
+                            policy.requestsInterceptedAutomaticallyEnabled = false
+                            PerimeterX.setPolicy(policy: policy, forAppId: appId, completion: nil)
+                            
+                            
                             self.perimeterXStarted = true
                             resolve(nil)
                         }
