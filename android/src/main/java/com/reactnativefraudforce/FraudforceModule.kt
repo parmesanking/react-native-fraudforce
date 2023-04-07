@@ -63,7 +63,7 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
 
         if (!this.perimeterXStarted && this.perimeterXStartAttempt< PX_MAX_START_ATTEMPTS) {
           try {
-            PerimeterX.INSTANCE.start(this.appContext as Application,  appId, this, policy)
+            PerimeterX.start(this.appContext as Application,  appId, this, policy)
             Log.d("PerimeterX", "PerimeterX started...")
 
             this.perimeterXStarted = true
@@ -91,7 +91,7 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
     UiThreadUtil.runOnUiThread {
       try {
         var json: WritableMap = Arguments.createMap()
-        val headers: HashMap<String, String> = PerimeterX.INSTANCE.headersForURLRequest(null)
+        val headers: HashMap<String, String> = PerimeterX.headersForURLRequest(null)
         headers.forEach { (key, value) ->
           json.putString(key, value)
         }
@@ -108,7 +108,7 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
   fun handleResponse(response: String?, code: Int?, url: String?, promise: Promise) {
     UiThreadUtil.runOnUiThread {
       try {
-        val isHandledByPX: Boolean = PerimeterX.INSTANCE.handleResponse(response!!, null, null)
+        val isHandledByPX: Boolean = PerimeterX.handleResponse(response!!, null, null)
         promise.resolve(isHandledByPX)
       }catch(e:Exception){
         promise.reject(e)
