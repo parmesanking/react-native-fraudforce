@@ -18,13 +18,17 @@ RCT_EXPORT_METHOD(getPerimeterXHeaders:(RCTPromiseResolveBlock)resolve
     resolve(headers);
 }
 
+
 RCT_EXPORT_METHOD(handleResponse:(NSString *)response code:(NSInteger)code url:(NSString *)url                     resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
     NSHTTPURLResponse *httpURLResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:url] statusCode:code HTTPVersion:nil headerFields:nil];
-    BOOL isHandledByPX = [PerimeterX handleResponseForAppId:nil data:data response:httpURLResponse];
-    NSNumber *result = [NSNumber numberWithBool:isHandledByPX];
-    resolve(result);
+    BOOL isHandledByPX = [PerimeterX handleResponseWithResponse:httpURLResponse data:data forAppId:nil callback:^(enum PerimeterXChallengeResult result) {
+        resolve(@[(result == PerimeterXChallengeResultSolved ? @"solved" : @"cancelled")]);
+    }];
+    if (!isHandledByPX) {
+        resolve(@[@"false"]);
+    }
 }
 
 @end

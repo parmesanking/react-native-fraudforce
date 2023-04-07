@@ -1,3 +1,4 @@
+
 @objc(Fraudforce)
 class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     
@@ -41,31 +42,31 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
                            resolve: @escaping RCTPromiseResolveBlock,
                            reject: @escaping  RCTPromiseRejectBlock){
         print("Starting PerimeterX...")
+        let policy = PXPolicy()
+        // configure the policy instance
+        policy.doctorCheckEnabled = false
+        policy.urlRequestInterceptionType = PerimeterX_SDK.PXPolicyUrlRequestInterceptionType.none
+               
         if (!self.perimeterXStarted && perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                PerimeterX.start(appId: appId, delegate: self, enableDoctorCheck: false) { success, error in
+                do{
+                    try PerimeterX.start(appId: appId, delegate: self, policy:policy)
+                    
+                    print("PerimeterX started...")
+                    self.perimeterXStarted = true
+                    resolve(nil)
+                    
+                } catch {
                     self.perimeterXStartAttempt+=1
                     if (self.perimeterXStartAttempt >= self.PX_MAX_START_ATTEMPTS){
                         reject("PX Start error", "Unable to start PerimeterX", error)
                     }else{
-                        if !success {
-                            // make sure to start the sdk again when it fails (network issue, etc.)
-                            print("PerimeterX not started...")
-                            self.startPerimeterX(appId, resolve: resolve, reject: reject)
-                        }else{
-                            print("PerimeterX started...")
-                            
-                            let policy = PXPolicy()
-                            // configure the policy instacne
-                            policy.requestsInterceptedAutomaticallyEnabled = false
-                            PerimeterX.setPolicy(policy: policy, forAppId: appId, completion: nil)
-                            
-                            
-                            self.perimeterXStarted = true
-                            resolve(nil)
-                        }
+                        // make sure to start the sdk again when it fails (network issue, etc.)
+                        print("PerimeterX not started...")
+                        self.startPerimeterX(appId, resolve: resolve, reject: reject)
                     }
                 }
+                
             }
         }
     }
