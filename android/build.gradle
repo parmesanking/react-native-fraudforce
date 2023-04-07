@@ -143,11 +143,15 @@ dependencies {
   implementation(name: 'fraudforce-lib-release-4.3.2', ext: 'aar')
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.google.android.material:material:1.5.0'  
-  
+
   //PerimeterX deps
+  implementation 'com.google.android.material:material:1.7.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation 'com.android.support.constraint:constraint-layout:2.0.4'
   implementation 'com.google.android.gms:play-services-instantapps:18.0.1'
-  implementation 'io.ktor:ktor-client-okhttp:1.6.8'
-  implementation(name: 'msdk-2.2.2', ext: 'aar')
+  implementation 'io.ktor:ktor-client-core:2.1.2'
+  implementation 'io.ktor:ktor-client-okhttp:2.1.2'
+  implementation 'com.fasterxml.uuid:java-uuid-generator:4.0.1'
+  implementation(name: 'msdk-3.0.1', ext: 'aar')
 
 }
