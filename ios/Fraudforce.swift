@@ -7,14 +7,14 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     private var perimeterXStartAttempt:Int16 = 0
     let PX_MAX_START_ATTEMPTS = 10
     
-    func perimeterxDidRequestBlocked(forAppId appId: String) {
+    
+    func perimeterxDidRequestBlocked(url: URL?, appId: String) {
         print("Request Blocked Event")
         if (self.hasListeners){
-            let data: [String: Any] = [ "appId": appId]
+            let data: [String: Any] = [ "appId": appId, "url": url?.formatted()]
             self.sendEvent(withName: "onPerimeterXRequestBlocked", body: data)
         }
     }
-    
     
     func perimeterxDidChallengeSolved(forAppId appId: String) {
         print("Challenge Solved Event")
@@ -29,6 +29,14 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
         if (self.hasListeners){
             let data: [String: Any] = [ "appId": appId]
             self.sendEvent(withName: "onPerimeterXChallengeCancelled", body: data)
+        }
+    }
+    
+    func perimeterxHeadersWereUpdated(headers: [String : String], forAppId appId: String) {
+        print("New headers available")
+        if (self.hasListeners){
+            let data: [String: Any] = headers
+            self.sendEvent(withName: "onPerimeterXHeadersUpdated", body: data)
         }
     }
     
@@ -91,7 +99,7 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
       }
       
     override func supportedEvents() -> [String]! {
-        return ["onPerimeterXRequestBlocked", "onPerimeterXChallengeSolved", "onPerimeterXChallengeCancelled"]
+        return ["onPerimeterXRequestBlocked", "onPerimeterXChallengeSolved", "onPerimeterXChallengeCancelled","onPerimeterXHeadersUpdated"]
     }
     
     override func startObserving() {
