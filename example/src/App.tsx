@@ -12,6 +12,17 @@ const subscription = eventEmitter.addListener('onPerimeterXRequestBlocked', (dat
 })
 
 
+if (global.__fbBatchedBridge) {
+  const origMessageQueue = global.__fbBatchedBridge;
+  const modules = origMessageQueue._remoteModuleTable;
+  const methods = origMessageQueue._remoteMethodTable;
+  global.findModuleByModuleAndMethodIds = (moduleId, methodId) => {
+    console.log(`The problematic line code is in: ${modules[moduleId]}.${methods[moduleId][methodId]}`)
+  }
+}
+
+//global.findModuleByModuleAndMethodIds(65, 9);
+
 export const extractBody = (res) => {
   if (res.ok) {
     return res.json()
@@ -43,25 +54,36 @@ export default function App() {
     <View style={styles.container}>
       <Text>Result: {result}</Text>
       <TouchableOpacity onPress={async () => {
-        await Fraudforce.startPerimeterX("PXMfr5fk9F").then(() => { console.log("YO") }).catch(() => { console.log("YAY") })
-        Fraudforce.getPerimeterXHeaders(async (headers) => {
-          const obj = JSON.parse(headers);
+        await Fraudforce.startPerimeterX("PXMfr5fk9F", ["api.betcha.one", "stage-api.betcha.one"]).then(() => {
+          console.log("YO")
+        }).catch((e) => {
+          console.log("YAY", e.message)
+        })
+
+        await Fraudforce.getPerimeterXHeaders().then(async (headers) => {
+          console.log("HEAD", headers)
+          //const obj = JSON.parse(headers);
+          obj = headers
           console.log("-->", {
             ...obj, Accept: 'application/json',
             'Accept-Language': 'en-us',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+
           })
-          const url = 'https://c69e-79-9-210-182.ngrok.io/testPX'
+          const url = 'https://stage-api.betcha.one/v1/login'
           let statusCode
           await fetch(url, {
             method: 'POST',
             headers: {
               ...obj, Accept: 'application/json',
               'Accept-Language': 'en-us',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json', "betcha-device": "123345",
+              decorateBraze: true,
+              "betcha-version": "ios(16.3.1)/167/1cde43c7"
             }
           }).then(res => {
             statusCode = res.status
+
             return res
           }).then(extractBody).then(data => {
             console.log(statusCode)
@@ -69,7 +91,7 @@ export default function App() {
             Fraudforce.handleResponse(JSON.stringify(data), statusCode, url);
             console.log(data)
 
-          }).catch(e => console.error(e.message))
+          }).catch(e => { console.error(e.message) })
 
 
         })

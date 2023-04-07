@@ -7,8 +7,8 @@
 RCT_EXTERN_METHOD(blackbox:(RCTPromiseResolveBlock)resolve
     reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(startPerimeterX:
-                  (NSString)appId
+RCT_EXTERN_METHOD(startPerimeterX:(NSString)appId
+                  forDomains:(NSArray*)forDomains
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

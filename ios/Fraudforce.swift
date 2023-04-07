@@ -6,6 +6,7 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     private var perimeterXStarted:Bool = false
     private var perimeterXStartAttempt:Int16 = 0
     let PX_MAX_START_ATTEMPTS = 10
+    
     func perimeterxDidRequestBlocked(forAppId appId: String) {
         print("Request Blocked Event")
         if (self.hasListeners){
@@ -39,6 +40,7 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     
     @objc
     func startPerimeterX(_ appId: String,
+                           forDomains:[String],
                            resolve: @escaping RCTPromiseResolveBlock,
                            reject: @escaping  RCTPromiseRejectBlock){
         print("Starting PerimeterX...")
@@ -46,6 +48,7 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
         // configure the policy instance
         policy.doctorCheckEnabled = false
         policy.urlRequestInterceptionType = PerimeterX_SDK.PXPolicyUrlRequestInterceptionType.none
+        policy.set(domains: Set(forDomains), forAppId: appId)
                
         if (!self.perimeterXStarted && perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -57,13 +60,14 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
                     resolve(nil)
                     
                 } catch {
+                    print("Unexpected error: \(error).")
                     self.perimeterXStartAttempt+=1
                     if (self.perimeterXStartAttempt >= self.PX_MAX_START_ATTEMPTS){
                         reject("PX Start error", "Unable to start PerimeterX", error)
                     }else{
                         // make sure to start the sdk again when it fails (network issue, etc.)
                         print("PerimeterX not started...")
-                        self.startPerimeterX(appId, resolve: resolve, reject: reject)
+                        self.startPerimeterX(appId, forDomains: forDomains, resolve: resolve, reject: reject)
                     }
                 }
                 
