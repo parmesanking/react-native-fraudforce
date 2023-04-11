@@ -52,12 +52,15 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
     }
 
     @ReactMethod
-    fun startPerimeterX(appId: String, forDomains: ArrayList<String>, promise: Promise) {
+    fun startPerimeterX(appId: String, forDomains: ReadableArray, promise: Promise) {
       UiThreadUtil.runOnUiThread {
         Log.d("PerimeterX", "Starting PerimeterX..")
         val policy = PXPolicy()
         policy.doctorCheckEnabled = false
-        policy.setDomains(forDomains, appId)
+        if (forDomains != null) {
+          val domains: List<String> = convertArrayToArrayList(forDomains) as List<String>
+          policy.setDomains(ArrayList(domains), appId)
+        }
         policy.urlRequestInterceptionType = PXPolicyUrlRequestInterceptionType.NONE
 
 
@@ -141,9 +144,9 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
   }
 
   override fun perimeterxHeadersWereUpdated(headers: HashMap<String, String>, appId: String) {
-    this.reactContext
+   /* this.reactContext
       .getJSModule(RCTDeviceEventEmitter::class.java)
-      .emit("onPerimeterXHeadersUpdated", headers)
+      .emit("onPerimeterXHeadersUpdated", headers)*/
 
   }
 
@@ -167,6 +170,20 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
   fun removeListeners(count: Int?) {
   }
 
+  private fun convertArrayToArrayList(readableArray: ReadableArray): ArrayList<Any> {
+    val jsonArray: ArrayList<Any> = ArrayList()
+    for (i in 0 until readableArray.size()) {
+      when (readableArray.getType(i)) {
+        ReadableType.Null -> {}
+        ReadableType.Boolean -> jsonArray.add(readableArray.getBoolean(i))
+        ReadableType.Number -> jsonArray.add(readableArray.getDouble(i))
+        ReadableType.String -> jsonArray.add(readableArray.getString(i))
+        //ReadableType.Map -> jsonArray.add(convertMapToHashMap(readableArray.getMap(i)))
+        ReadableType.Array -> jsonArray.add(convertArrayToArrayList(readableArray.getArray(i)))
+      }
+    }
+    return jsonArray
+  }
 }
 
 
