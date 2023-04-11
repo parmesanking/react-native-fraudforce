@@ -91,9 +91,11 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
     UiThreadUtil.runOnUiThread {
       try {
         var json: WritableMap = Arguments.createMap()
-        val headers: HashMap<String, String> = PerimeterX.headersForURLRequest(null)
-        headers.forEach { (key, value) ->
-          json.putString(key, value)
+        val headers: HashMap<String, String>? = PerimeterX.headersForURLRequest(null)
+        if (headers != null) {
+          headers.forEach { (key, value) ->
+            json.putString(key, value)
+          }
         }
         promise.resolve(json);
       } catch (e: Exception) {
