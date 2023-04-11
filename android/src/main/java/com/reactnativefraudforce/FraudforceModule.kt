@@ -70,7 +70,7 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
             promise.resolve(null)
 
           } catch (error:Exception) {
-            Log.d("PerimeterX", error.message)
+            Log.d("PerimeterX", error.message!!)
 
             this.perimeterXStartAttempt += 1
             if (this.perimeterXStartAttempt >= PX_MAX_START_ATTEMPTS) {
