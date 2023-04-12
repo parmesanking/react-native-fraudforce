@@ -24,11 +24,12 @@ RCT_EXPORT_METHOD(handleResponse:(NSString *)response code:(NSInteger)code url:(
     NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
     NSHTTPURLResponse *httpURLResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:url] statusCode:code HTTPVersion:nil headerFields:nil];
     BOOL isHandledByPX = [PerimeterX handleResponseWithResponse:httpURLResponse data:data forAppId:nil callback:^(enum PerimeterXChallengeResult result) {
-        resolve(@(result == PerimeterXChallengeResultSolved ? true : false));
+        BOOL handled = result == PerimeterXChallengeResultSolved ? true : false;
+        NSLog(@">>>>>> PX handleResponse result %d", handled );
     }];
-    if (!isHandledByPX) {
-        resolve(false);
-    }
+    NSNumber *result = [NSNumber numberWithBool:isHandledByPX];
+    resolve(result);
+    
 }
 
 @end
