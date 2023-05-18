@@ -1,10 +1,12 @@
 
+var perimeterXStarted:Bool = false
+var perimeterXStartAttempt:Int16 = 0
+
 @objc(Fraudforce)
 class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     
     private var hasListeners:Bool = false
-    private var perimeterXStarted:Bool = false
-    private var perimeterXStartAttempt:Int16 = 0
+
     let PX_MAX_START_ATTEMPTS = 10
     
     
@@ -58,21 +60,21 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
         policy.urlRequestInterceptionType = PerimeterX_SDK.PXPolicyUrlRequestInterceptionType.none
         policy.set(domains: Set(forDomains), forAppId: appId)
         
-        if (self.perimeterXStarted){
+        if (perimeterXStarted){
             resolve(nil)
-        }else if (self.perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
+        }else if (perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 do{
                     try PerimeterX.start(appId: appId, delegate: self, policy:policy)
                     
                     print("PerimeterX started...")
-                    self.perimeterXStarted = true
+                    perimeterXStarted = true
                     resolve(nil)
                     
                 } catch {
                     print("Unexpected error: \(error).")
-                    self.perimeterXStartAttempt+=1
-                    if (self.perimeterXStartAttempt >= self.PX_MAX_START_ATTEMPTS){
+                    perimeterXStartAttempt+=1
+                    if (perimeterXStartAttempt >= self.PX_MAX_START_ATTEMPTS){
                         reject("PX Start error", "Unable to start PerimeterX", error)
                     }else{
                         // make sure to start the sdk again when it fails (network issue, etc.)
