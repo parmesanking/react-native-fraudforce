@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   
   s.dependency "React-Core"
-  s.dependency "PerimeterX", "= 3.0.1"
+  s.dependency "PerimeterX", "= 3.0.3"
   
   if Gem::Version.new(Pod::VERSION) >= Gem::Version.new('1.10.0')
     s.source_files = "ios/**/*.{h,m,mm,swift}"

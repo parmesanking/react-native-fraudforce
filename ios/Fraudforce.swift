@@ -57,8 +57,10 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
         policy.doctorCheckEnabled = false
         policy.urlRequestInterceptionType = PerimeterX_SDK.PXPolicyUrlRequestInterceptionType.none
         policy.set(domains: Set(forDomains), forAppId: appId)
-               
-        if (!self.perimeterXStarted && perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
+        
+        if (self.perimeterXStarted){
+            resolve(nil)
+        }else if (self.perimeterXStartAttempt < PX_MAX_START_ATTEMPTS ) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 do{
                     try PerimeterX.start(appId: appId, delegate: self, policy:policy)
@@ -80,6 +82,8 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
                 }
                 
             }
+        }else{
+            reject("PX Start error", "Unable to start PerimeterX",  NSError(domain: "PXError", code: 0, userInfo: ["message":"Too many start attempts"]))
         }
     }
 
