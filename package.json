@@ -1,6 +1,6 @@
 {
   "name": "react-native-fraudforce",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "React Native wrapper for FraudForce sdk (aka iovation)",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
