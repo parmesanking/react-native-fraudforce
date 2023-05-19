@@ -152,5 +152,5 @@ dependencies {
   implementation 'io.ktor:ktor-client-core:2.1.2'
   implementation 'io.ktor:ktor-client-okhttp:2.1.2'
   implementation 'com.fasterxml.uuid:java-uuid-generator:4.0.1'
-  implementation(name: 'msdk-3.0.4', ext: 'aar')
+  implementation(name: 'msdk-3.0.1', ext: 'aar')
 }
