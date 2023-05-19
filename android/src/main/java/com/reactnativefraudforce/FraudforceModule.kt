@@ -16,14 +16,16 @@ import com.perimeterx.mobile_sdk.main.PXPolicyUrlRequestInterceptionType
 
 const val PX_MAX_START_ATTEMPTS = 10
 
+private var perimeterXStarted: Boolean = false
+private var perimeterXStartAttempt: Int = 0
+
 class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), PerimeterXDelegate {
     val reactContext: ReactApplicationContext = reactContext
     val appContext: Context = reactContext.applicationContext
     val ai = appContext.packageManager.getApplicationInfo(appContext.packageName, PackageManager.GET_META_DATA)
     val iovationKey = ai.metaData.getString("com.betcha.IOVATION_KEY") ?: ""
 
-    private var perimeterXStarted: Boolean = false
-    private var perimeterXStartAttempt: Int = 0
+
 
     var configuration: FraudForceConfiguration  =  FraudForceConfiguration.Builder()
       .subscriberKey(iovationKey)
@@ -63,29 +65,31 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
         }
         policy.urlRequestInterceptionType = PXPolicyUrlRequestInterceptionType.NONE
 
-
-        if (!this.perimeterXStarted && this.perimeterXStartAttempt< PX_MAX_START_ATTEMPTS) {
+        if (perimeterXStarted){
+          promise.resolve(null)
+        }else if (perimeterXStartAttempt< PX_MAX_START_ATTEMPTS) {
           try {
             PerimeterX.start(this.appContext as Application,  appId, this, policy)
             Log.d("PerimeterX", "PerimeterX started...")
 
-            this.perimeterXStarted = true
+            perimeterXStarted = true
             promise.resolve(null)
 
           } catch (error:Exception) {
             Log.d("PerimeterX", error.message!!)
 
-            this.perimeterXStartAttempt += 1
-            if (this.perimeterXStartAttempt >= PX_MAX_START_ATTEMPTS) {
+            perimeterXStartAttempt += 1
+            if (perimeterXStartAttempt >= PX_MAX_START_ATTEMPTS) {
               promise.reject("PX Start error", "Unable to start PerimeterX", error)
             } else {
               // make sure to start the sdk again when it fails (network issue, etc.)
               Log.d("PerimeterX", "PerimeterX not started...")
               Thread.sleep(1_000)
               this.startPerimeterX(appId, forDomains, promise)
-
             }
           }
+        } else {
+          promise.reject("PX Start error", "Unable to start PerimeterX",  Exception("Too many start attempts"))
         }
       }
     }
