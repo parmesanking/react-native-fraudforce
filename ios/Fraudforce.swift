@@ -13,7 +13,7 @@ class Fraudforce: RCTEventEmitter, PerimeterXDelegate {
     func perimeterxDidRequestBlocked(url: URL?, appId: String) {
         print("Request Blocked Event")
         if (self.hasListeners){
-            let data: [String: Any] = [ "appId": appId, "url": url?.formatted()]
+            let data: [String: Any] = [ "appId": appId, "url": url?.absoluteString]
             self.sendEvent(withName: "onPerimeterXRequestBlocked", body: data)
         }
     }
