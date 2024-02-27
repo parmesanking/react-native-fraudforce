@@ -182,7 +182,7 @@ class FraudforceModule(reactContext: ReactApplicationContext) : ReactContextBase
         ReadableType.Boolean -> jsonArray.add(readableArray.getBoolean(i))
         ReadableType.Number -> jsonArray.add(readableArray.getDouble(i))
         ReadableType.String -> jsonArray.add(readableArray.getString(i))
-        //ReadableType.Map -> jsonArray.add(convertMapToHashMap(readableArray.getMap(i)))
+        ReadableType.Map -> {}
         ReadableType.Array -> jsonArray.add(convertArrayToArrayList(readableArray.getArray(i)))
       }
     }
