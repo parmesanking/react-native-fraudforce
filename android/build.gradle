@@ -147,7 +147,7 @@ dependencies {
   //PerimeterX deps
   implementation 'com.google.android.material:material:1.7.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+  //implementation 'com.android.support.constraint:constraint-layout:2.0.4'
   implementation 'com.google.android.gms:play-services-instantapps:18.0.1'
   implementation 'io.ktor:ktor-client-core:2.1.2'
   implementation 'io.ktor:ktor-client-okhttp:2.1.2'
